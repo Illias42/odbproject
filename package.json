@@ -12,10 +12,9 @@
     "@prisma/client": "^3.13.0",
     "fastify": "^3.29.0",
     "fastify-auth": "^1.2.0",
+    "fastify-swagger": "^5.2.0",
     "jsonwebtoken": "^8.5.1",
     "prisma": "^3.13.0"
   },
-  "devDependencies": {
-    "fastify-swagger": "^5.2.0"
-  }
+  "devDependencies": {}
 }
