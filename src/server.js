@@ -1,8 +1,8 @@
 import Fastify from "fastify";
 import multipartPlugin from "@fastify/multipart";
 import formBodyPlugin from "@fastify/formbody";
-import cors from "fastify-cors";
-import fastifySwagger from "fastify-swagger";
+import cors from "@fastify/cors";
+import fastifySwagger from "@fastify/swagger";
 import userRoutes from "./modules/user/user.route.js";
 
 const app = Fastify({logger: true});
