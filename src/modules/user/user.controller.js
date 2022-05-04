@@ -1,9 +1,12 @@
 import { createUser } from "./user.service.js";
+import p from "@prisma/client";
 import jwt from "jsonwebtoken";
+
+const { Prisma } = p;
 
 export async function registerUserHandler(req, reply) {
     const body = req.body;
-
+    console.log(body);
     try {
         const [_, token] = await createUser(body);
         return reply.code(201).send({
@@ -11,6 +14,13 @@ export async function registerUserHandler(req, reply) {
             token
         });
     } catch(e) {
+        console.log(e);
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+            if (e.code === 'P2002') {
+                return reply.code(409).send('This email is already taken');
+            }
+        }
+        
         return reply.code(500).send("Failed to create new user");
     }
 }

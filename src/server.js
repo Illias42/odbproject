@@ -1,9 +1,12 @@
 import Fastify from "fastify";
+import multipartPlugin from "@fastify/multipart";
 import formBodyPlugin from "@fastify/formbody";
+import cors from "fastify-cors";
 import fastifySwagger from "fastify-swagger";
 import userRoutes from "./modules/user/user.route.js";
 
 const app = Fastify({logger: true});
+app.register(cors, { origin: "*" })
 app.register(fastifySwagger, {
     exposeRoute: true,
     routePrefix: '/apidocs',
@@ -11,6 +14,7 @@ app.register(fastifySwagger, {
         info: { title: 'api' }
     }
 });
+app.register(multipartPlugin);
 app.register(formBodyPlugin);
 app.register(userRoutes, {prefix: "api/users"});
 
