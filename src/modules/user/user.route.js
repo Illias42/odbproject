@@ -1,4 +1,4 @@
-import FastifyAuth from "fastify-auth";
+import FastifyAuth from "@fastify/auth";
 import { credentialsStrategy } from "../../strategies/credentials.js";
 import { jwtStrategy } from "../../strategies/jwt.js";
 import { registerUserHandler, loginUserHandler } from "./user.controller.js";
