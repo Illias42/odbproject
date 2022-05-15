@@ -4,13 +4,14 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
 export async function createUser(input) {
-    const { name, surname, email, password } = input;
+    const { avatar, name, surname, email, password } = input;
     const {hash, salt} = hashPassword(password);
-    const token = jwt.sign({name, surname, email}, process.env.JWT_SECRET ?? "secretkey", {expiresIn: "5d"});
 
     const user = await prisma.user.create({
-        data: {name, surname, email, salt, password: hash}
+        data: {avatar, name, surname, email, salt, password: hash}
     })
+
+    const token = jwt.sign({id: user.id, name, surname, email}, process.env.JWT_SECRET ?? "secretkey", {expiresIn: "5d"});
 
     return [user, token];
 }

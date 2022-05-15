@@ -17,7 +17,6 @@ export const registerSchema = {
     }
 }
 
-
 export const loginSchema = {
     body: {
         type: 'object',

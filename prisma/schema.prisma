@@ -8,10 +8,21 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  name      String
-  surname   String
-  password  String
-  salt      String
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  avatar     String
+  name       String
+  surname    String
+  password   String
+  salt       String
+  articles   Article[]
+}
+
+model Article {
+  id         Int       @id @default(autoincrement())
+  author     User      @relation(fields: [authorId], references: [id])
+  authorId   Int
+  title      String
+  content    String    @db.LongText
+  createdAt  DateTime  @default(now()) 
 }

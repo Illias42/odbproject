@@ -1,7 +1,8 @@
 import FastifyAuth from "@fastify/auth";
+import { upload } from "../../server.js";
 import { credentialsStrategy } from "../../strategies/credentials.js";
 import { jwtStrategy } from "../../strategies/jwt.js";
-import { registerUserHandler, loginUserHandler } from "./user.controller.js";
+import { registerUserHandler, loginUserHandler, getUserAvatar } from "./user.controller.js";
 import { loginSchema, registerSchema } from "./user.schema.js";
 
 async function userRoutes(app, options, done) {
@@ -11,7 +12,7 @@ async function userRoutes(app, options, done) {
     .register(FastifyAuth)
     .after(() => {
 
-        app.post("/register", {schema: registerSchema}, registerUserHandler);
+        app.post("/register", {preHandler: upload.single('avatar')}, registerUserHandler);
 
         app.post(
             "/login", 
@@ -23,6 +24,12 @@ async function userRoutes(app, options, done) {
             }, 
             loginUserHandler
         );
+
+        app.get(
+            '/:userId/avatar',
+            {},
+            getUserAvatar
+        )
         
     })
 

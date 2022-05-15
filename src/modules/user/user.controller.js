@@ -1,12 +1,13 @@
 import { createUser } from "./user.service.js";
 import p from "@prisma/client";
+import { prisma } from "../../utils/prisma.js";
 import jwt from "jsonwebtoken";
 
 const { Prisma } = p;
 
 export async function registerUserHandler(req, reply) {
     const body = req.body;
-    console.log(body);
+    body.avatar = req.file.filename;
     try {
         const [_, token] = await createUser(body);
         return reply.code(201).send({
@@ -27,7 +28,10 @@ export async function registerUserHandler(req, reply) {
 
 export async function loginUserHandler(req, reply) {
     try {
-        const token = jwt.sign({id: req.user.id}, process.env.JWT_SECRET ?? "secretkey", {expiresIn: "1d"});
+        const user = await prisma.user.findFirst({
+            where: {id: req.user.id}
+        })
+        const token = jwt.sign({id: user.id, name: user.name, surname: user.surname, email: user.email}, process.env.JWT_SECRET ?? "secretkey", {expiresIn: "1d"});
         return reply.code(201).send({
             message: "Authenticated",
             token
@@ -35,4 +39,12 @@ export async function loginUserHandler(req, reply) {
     } catch(e) {
         return reply.code(500).send("Not authenticated");
     }
+}
+
+export async function getUserAvatar(req, reply) {
+    const user = await prisma.user.findFirst({where:{
+        id: Number(req.params.userId)
+    }});
+    console.log(user.avatar);
+    reply.sendFile(user.avatar, './uploads');
 }

@@ -6,6 +6,7 @@ export const jwtStrategy = async (req, reply) => {
             throw new Error('No token was sent');
         }
         const token = req.headers.authorization.replace("Bearer ", "");
+        console.log("Token: ", token)
         const user = await verifyUser(token);
 
         if (!user) {
