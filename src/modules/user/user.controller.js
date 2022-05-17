@@ -7,7 +7,7 @@ const { Prisma } = p;
 
 export async function registerUserHandler(req, reply) {
     const body = req.body;
-    body.avatar = req.file.filename;
+    body.avatar = req.file.location;
     try {
         const [_, token] = await createUser(body);
         return reply.code(201).send({

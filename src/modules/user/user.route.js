@@ -1,5 +1,5 @@
 import FastifyAuth from "@fastify/auth";
-import { upload } from "../../server.js";
+import { upload } from "../../utils/s3.js";
 import { credentialsStrategy } from "../../strategies/credentials.js";
 import { jwtStrategy } from "../../strategies/jwt.js";
 import { registerUserHandler, loginUserHandler, getUserAvatar } from "./user.controller.js";

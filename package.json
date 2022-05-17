@@ -15,9 +15,11 @@
     "@fastify/static": "^5.0.1",
     "@fastify/swagger": "^6.0.1",
     "@prisma/client": "^3.13.0",
+    "aws-sdk": "^2.1136.0",
     "fastify": "^3.29.0",
     "fastify-multer": "^2.0.2",
     "jsonwebtoken": "^8.5.1",
+    "multer-s3": "^2.10.0",
     "prisma": "^3.13.0"
   },
   "devDependencies": {}
