@@ -12,6 +12,7 @@ async function userRoutes(app, options, done) {
     .register(FastifyAuth)
     .after(() => {
 
+        app.get('/:userId/avatar', {}, getUserAvatar);
         app.post("/register", {preHandler: upload.single('avatar')}, registerUserHandler);
 
         app.post(
@@ -25,11 +26,7 @@ async function userRoutes(app, options, done) {
             loginUserHandler
         );
 
-        app.get(
-            '/:userId/avatar',
-            {},
-            getUserAvatar
-        )
+        
         
     })
 

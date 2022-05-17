@@ -31,7 +31,7 @@ export async function loginUserHandler(req, reply) {
         const user = await prisma.user.findFirst({
             where: {id: req.user.id}
         })
-        const token = jwt.sign({id: user.id, name: user.name, surname: user.surname, email: user.email}, process.env.JWT_SECRET ?? "secretkey", {expiresIn: "1d"});
+        const token = jwt.sign({id: user.id, avatar: user.avatar, name: user.name, surname: user.surname, email: user.email}, process.env.JWT_SECRET ?? "secretkey", {expiresIn: "1d"});
         return reply.code(201).send({
             message: "Authenticated",
             token
