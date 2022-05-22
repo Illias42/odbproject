@@ -44,6 +44,7 @@ model Quiz {
   id         Int       @id @default(autoincrement())
   authorId   Int
   name       String
-  questions  Json      
+  questions  Json   
+  createdAt  DateTime  @default(now())
   author     User      @relation(fields: [authorId], references: [id])
 }

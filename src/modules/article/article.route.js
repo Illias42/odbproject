@@ -18,12 +18,8 @@ async function articleRoutes(app, options, done) {
         );
 
         app.get(
-            "/articles", 
-            {   
-                preHandler: app.auth([
-                    app.verifyJWT,
-                ]),
-            }, 
+            "/", 
+            {}, 
             getArticlesHandler
         );
 

@@ -17,7 +17,6 @@ export async function createArticleHandler(req, reply) {
         const body = req.body;
         const user = req.user;
         const article = await createArticle(user, body);
-        console.log(article);
         return reply.code(201).send({
             message: "Article was created",
             article
@@ -32,7 +31,6 @@ export async function getMyArticlesHandler(req, reply) {
     try {
         const user = req.user;
         const articles = await getMyArticles(user);
-        console.log(articles);
         return reply.code(200).send({
             articles
         });

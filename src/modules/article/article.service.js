@@ -1,4 +1,5 @@
 import { prisma } from "../../utils/prisma.js";
+import { convert } from "html-to-text";
 
 export async function createArticle(user, body) {
     const { id } = user;
@@ -28,6 +29,17 @@ export async function getArticles() {
             createdAt: 'desc'
         }
     })
+    
+    articles.forEach((article) => {
+        article.content = convert(article.content, {
+            limits: {
+                maxChildNodes: 1
+            }
+        })
+    });
+
+    console.log(articles);
+
     return articles;
 }
 
