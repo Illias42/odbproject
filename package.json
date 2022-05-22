@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "nodemon src/server.js"
   },
   "dependencies": {
     "@fastify/auth": "^2.0.0",
@@ -18,9 +18,13 @@
     "aws-sdk": "^2.1136.0",
     "fastify": "^3.29.0",
     "fastify-multer": "^2.0.2",
+    "fastify-socket.io": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "multer-s3": "^2.10.0",
-    "prisma": "^3.13.0"
+    "prisma": "^3.13.0",
+    "socket.io": "^4.5.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
 }

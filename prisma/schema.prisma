@@ -16,13 +16,34 @@ model User {
   password   String
   salt       String
   articles   Article[]
+  comments   Comment[]
+  quizes     Quiz[]
 }
 
 model Article {
   id         Int       @id @default(autoincrement())
-  author     User      @relation(fields: [authorId], references: [id])
   authorId   Int
   title      String
   content    String    @db.LongText
+  comments   Comment[]
+  createdAt  DateTime  @default(now())
+  author     User      @relation(fields: [authorId], references: [id])
+}
+
+model Comment {
+  id         Int       @id @default(autoincrement())
+  authorId   Int
+  articleId  Int
+  text       String    @db.LongText
   createdAt  DateTime  @default(now()) 
+  author     User      @relation(fields: [authorId], references: [id])
+  article    Article   @relation(fields: [articleId], references: [id])
+}
+
+model Quiz {
+  id         Int       @id @default(autoincrement())
+  authorId   Int
+  name       String
+  questions  Json      
+  author     User      @relation(fields: [authorId], references: [id])
 }

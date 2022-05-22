@@ -1,6 +1,6 @@
 import FastifyAuth from "@fastify/auth";
 import { jwtStrategy } from "../../strategies/jwt.js";
-import { createArticleHandler, getArticleHandler, getMyArticlesHandler } from "./article.controller.js";
+import { createArticleHandler, getArticleHandler, getArticlesHandler, getMyArticlesHandler } from "./article.controller.js";
 
 async function articleRoutes(app, options, done) {
     app
@@ -15,6 +15,16 @@ async function articleRoutes(app, options, done) {
                 ]),
             }, 
             createArticleHandler
+        );
+
+        app.get(
+            "/articles", 
+            {   
+                preHandler: app.auth([
+                    app.verifyJWT,
+                ]),
+            }, 
+            getArticlesHandler
         );
 
         app.get(
