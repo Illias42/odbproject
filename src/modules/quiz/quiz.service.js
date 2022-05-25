@@ -21,7 +21,7 @@ export async function getAllQuizzes() {
             }
         },
         orderBy: {
-            createdAt: 'desc'
+            createdAt: 'asc'
         }
     }); 
 }
