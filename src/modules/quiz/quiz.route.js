@@ -15,7 +15,7 @@ async function quizRoutes(app, options, done) {
             createQuizHandler
         );
 
-        app.get("/", 
+        app.get("/page/:page", 
             {}, 
             getAllQuizzesHandler
         );

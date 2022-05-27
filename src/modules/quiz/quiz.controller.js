@@ -17,7 +17,8 @@ export async function createQuizHandler(req, reply) {
 
 export async function getAllQuizzesHandler(req, reply) {
     try {
-        const quizzes = await getAllQuizzes();
+        const page = Number(req.params.page);
+        const quizzes = await getAllQuizzes(page);
         return reply.code(200).send(quizzes);
     } catch(e) {
         console.log(e);

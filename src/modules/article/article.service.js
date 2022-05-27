@@ -14,8 +14,10 @@ export async function createArticle(user, body) {
     return article;
 }
 
-export async function getArticles() {
+export async function getArticles(page) {
     const articles = await prisma.article.findMany({
+        skip: (page - 1) * 5,
+        take: 5,
         include: {
             author: {
                 select: {
@@ -38,9 +40,9 @@ export async function getArticles() {
         })
     });
 
-    console.log(articles);
+    const count = await prisma.article.count();
 
-    return articles;
+    return {articles, count};
 }
 
 export async function getMyArticles(user) {

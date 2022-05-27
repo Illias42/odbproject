@@ -9,8 +9,10 @@ export async function createQuiz(body, user) {
     });
 }
 
-export async function getAllQuizzes() {
-    return await prisma.quiz.findMany({
+export async function getAllQuizzes(page) {
+    const quizzes = await prisma.quiz.findMany({
+        skip: (page - 1) * 9,
+        take: 9,
         include: {
             author: {
                 select: {
@@ -23,7 +25,11 @@ export async function getAllQuizzes() {
         orderBy: {
             createdAt: 'asc'
         }
-    }); 
+    });
+
+    const count = await prisma.quiz.count();
+
+    return {quizzes, count}
 }
 
 export async function getMyQuizzes(myId) {

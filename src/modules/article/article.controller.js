@@ -2,10 +2,9 @@ import { createArticle, getArticle, getArticles, getMyArticles } from "./article
 
 export async function getArticlesHandler(req, reply) {
     try {
-        const articles = await getArticles();
-        return reply.code(200).send({
-            articles
-        });
+        const page = Number(req.params.page);
+        const articles = await getArticles(page);
+        return reply.code(200).send(articles);
     } catch(e) {
         console.log(e);
         return reply.code(500).send("Failed to get articles");

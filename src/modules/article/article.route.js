@@ -18,7 +18,7 @@ async function articleRoutes(app, options, done) {
         );
 
         app.get(
-            "/", 
+            "/page/:page", 
             {}, 
             getArticlesHandler
         );
