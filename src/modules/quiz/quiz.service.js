@@ -23,7 +23,7 @@ export async function getAllQuizzes(page) {
             }
         },
         orderBy: {
-            createdAt: 'asc'
+            createdAt: 'desc'
         }
     });
 
@@ -66,5 +66,13 @@ export async function getQuiz(id) {
                 }
             }
         },
+    });
+}
+
+export async function deleteQuiz(id) {
+    return await prisma.quiz.delete({
+        where: {
+            id: id
+        }
     });
 }

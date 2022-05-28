@@ -1,4 +1,4 @@
-import { createQuiz, getAllQuizzes, getMyQuizzes, getQuiz } from "./quiz.service.js";
+import { createQuiz, deleteQuiz, getAllQuizzes, getMyQuizzes, getQuiz } from "./quiz.service.js";
 
 export async function createQuizHandler(req, reply) {
     try {
@@ -22,7 +22,7 @@ export async function getAllQuizzesHandler(req, reply) {
         return reply.code(200).send(quizzes);
     } catch(e) {
         console.log(e);
-        return reply.code(500).send("Failed to get quizes");
+        return reply.code(500).send("Failed to get quizzes");
     }
 }
 
@@ -33,7 +33,7 @@ export async function getMyQuizzesHandler(req, reply) {
         return reply.code(200).send(quizzes);
     } catch(e) {
         console.log(e);
-        return reply.code(500).send("Failed to get quizes");
+        return reply.code(500).send("Failed to get quizzes");
     }
 }
 
@@ -45,5 +45,16 @@ export async function getQuizHandler(req, reply) {
     } catch(e) {
         console.log(e);
         return reply.code(500).send("Failed to get quiz");
+    }
+}
+
+export async function deleteQuizHandler(req, reply) {
+    try {
+        const id = Number(req.params.id);
+        const quiz = await deleteQuiz(id);
+        return reply.code(204).send(quiz);
+    } catch(e) {
+        console.log(e);
+        return reply.code(500).send("Failed to delete quiz");
     }
 }

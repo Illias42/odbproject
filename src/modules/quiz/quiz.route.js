@@ -1,6 +1,6 @@
 import FastifyAuth from "@fastify/auth";
 import { jwtStrategy } from "../../strategies/jwt.js";
-import { createQuizHandler, getAllQuizzesHandler, getMyQuizzesHandler, getQuizHandler } from "../quiz/quiz.controller.js";
+import { createQuizHandler, deleteQuizHandler, getAllQuizzesHandler, getMyQuizzesHandler, getQuizHandler } from "../quiz/quiz.controller.js";
 
 async function quizRoutes(app, options, done) {
     app
@@ -28,6 +28,11 @@ async function quizRoutes(app, options, done) {
         app.get("/:id", 
             {}, 
             getQuizHandler
+        );
+
+        app.delete("/:id", 
+            {}, 
+            deleteQuizHandler
         );
 
     })

@@ -13,6 +13,7 @@ model User {
   avatar     String
   name       String
   surname    String
+  about      String    @default("")
   password   String
   salt       String
   articles   Article[]
