@@ -11,7 +11,7 @@ export async function createUser(input) {
         data: {avatar, name, surname, email, salt, password: hash}
     })
 
-    const token = jwt.sign({id: user.id, avatar, name, surname, email}, process.env.JWT_SECRET ?? "secretkey", {expiresIn: "5d"});
+    const token = jwt.sign({id: user.id, avatar, name, surname, about: "", email}, process.env.JWT_SECRET ?? "secretkey", {expiresIn: "5d"});
 
     return [user, token];
 }
