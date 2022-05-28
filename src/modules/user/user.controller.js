@@ -2,6 +2,7 @@ import { createUser } from "./user.service.js";
 import p from "@prisma/client";
 import { prisma } from "../../utils/prisma.js";
 import jwt from "jsonwebtoken";
+import { hashPassword } from "../../utils/hash.js";
 
 const { Prisma } = p;
 
@@ -47,4 +48,35 @@ export async function getUserAvatar(req, reply) {
     }});
     console.log(user.avatar);
     reply.sendFile(user.avatar, './uploads');
+}
+
+export async function updateUserHandler(req, reply) {
+    try {
+        let body = req.body;
+
+        if (req.file?.location) {
+            body.avatar = req.file.location;
+        }
+        
+        if (body.password) {
+            const {hash, salt} = hashPassword(body.password);
+            body.password = hash;
+            body.salt = salt;
+        } else {
+            delete body.password;
+        }
+
+        const user = await prisma.user.update({
+            where: {id: req.user.id},
+            data: {
+                ...req.body
+            }
+        })
+
+        const token = jwt.sign({id: user.id, avatar: user.avatar, name: user.name, surname: user.surname, about: user.about, email: user.email}, process.env.JWT_SECRET ?? "secretkey", {expiresIn: "5d"});
+        return reply.code(201).send({user, token});
+    } catch(e) {
+        console.log(e);
+        return reply.code(500).send("Not authenticated");
+    }
 }
