@@ -9,9 +9,7 @@ async function quizRoutes(app, options, done) {
     .after(() => {
 
         app.post("/", 
-            {
-                preHandler: app.auth([app.verifyJWT]),
-            }, 
+            {preHandler: app.auth([app.verifyJWT])}, 
             createQuizHandler
         );
 
@@ -31,7 +29,7 @@ async function quizRoutes(app, options, done) {
         );
 
         app.delete("/:id", 
-            {}, 
+            {preHandler: app.auth([app.verifyJWT])}, 
             deleteQuizHandler
         );
 

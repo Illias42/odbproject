@@ -42,9 +42,10 @@ export async function loginUserHandler(req, reply) {
     }
 }
 
-export async function deleteUserHandler() {
+export async function deleteUserHandler(req, reply) {
     try {
         const user = await deleteUser(req.user.id);
+        console.log("deleted user: ", user);
         return reply.code(204).send(user);
     } catch(e) {
         return reply.code(500).send("Failed to delete user");

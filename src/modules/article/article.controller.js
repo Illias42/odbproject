@@ -1,4 +1,4 @@
-import { createArticle, getArticle, getArticles, getMyArticles } from "./article.service.js";
+import { createArticle, deleteArticle, getArticle, getArticles, getMyArticles } from "./article.service.js";
 
 export async function getArticlesHandler(req, reply) {
     try {

@@ -9,11 +9,7 @@ async function articleRoutes(app, options, done) {
     .after(() => {
         app.post(
             "/createarticle", 
-            {   
-                preHandler: app.auth([
-                    app.verifyJWT,
-                ]),
-            }, 
+            {preHandler: app.auth([app.verifyJWT])}, 
             createArticleHandler
         );
 
@@ -25,11 +21,7 @@ async function articleRoutes(app, options, done) {
 
         app.get(
             "/myarticles", 
-            {   
-                preHandler: app.auth([
-                    app.verifyJWT,
-                ]),
-            }, 
+            {preHandler: app.auth([app.verifyJWT])}, 
             getMyArticlesHandler
         );
 
@@ -41,11 +33,7 @@ async function articleRoutes(app, options, done) {
 
         app.delete(
             "/:articleId", 
-            {
-                preHandler: app.auth([
-                    app.verifyJWT,
-                ])
-            }, 
+            {preHandler: app.auth([app.verifyJWT])}, 
             deleteArticleHandler
         );
     })

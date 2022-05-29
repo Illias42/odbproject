@@ -19,26 +19,18 @@ async function userRoutes(app, options, done) {
             "/login", 
             {   
                 schema: loginSchema,
-                preHandler: app.auth([
-                    app.verifyCredentials,
-                ]),
+                preHandler: app.auth([app.verifyCredentials]),
             }, 
             loginUserHandler
         );
 
         app.delete("/:id",
-            {preHandler: [
-                app.auth([
-                    app.verifyJWT,
-                ])
-            ]}, 
+            {preHandler: app.auth([app.verifyJWT])}, 
             deleteUserHandler); 
 
         app.put('/:id', 
             {preHandler: [
-                app.auth([
-                    app.verifyJWT,
-                ]),
+                app.auth([app.verifyJWT]),
                 upload.single('avatar')
             ]}, 
             updateUserHandler);        
