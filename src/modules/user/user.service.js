@@ -16,6 +16,12 @@ export async function createUser(input) {
     return [user, token];
 }
 
+export async function deleteUser(id) {
+    return await prisma.user.delete({
+        where: {id}
+    });
+}
+
 export async function findByCredentials(email, password) {
     const user = await prisma.user.findUnique({
         where: {

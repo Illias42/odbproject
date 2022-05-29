@@ -4,14 +4,13 @@ import { convert } from "html-to-text";
 export async function createArticle(user, body) {
     const { id } = user;
     const { title, content } = body;
-    const article = prisma.article.create({
+    return await prisma.article.create({
         data: {
             authorId: id,
             title,
             content
         }
-    })
-    return article;
+    });
 }
 
 export async function getArticles(page) {
@@ -47,7 +46,7 @@ export async function getArticles(page) {
 
 export async function getMyArticles(user) {
     const { id } = user;
-    const articles = prisma.article.findMany({
+    return await prisma.article.findMany({
         where: {
             authorId: id
         },
@@ -64,12 +63,10 @@ export async function getMyArticles(user) {
             createdAt: 'desc'
         }
     })
-    return articles;
 }
 
 export async function getArticle(id) {
-    console.log('asd');
-    const article = await prisma.article.findFirst({
+    return await prisma.article.findFirst({
         where: {
             id: id
         },
@@ -96,6 +93,12 @@ export async function getArticle(id) {
             }
         },
     })
-    console.log(article);
-    return article;
+}
+
+export async function deleteArticle(articleId) {
+    return await prisma.article.delete({
+        where: {
+            id: articleId
+        }
+    });
 }

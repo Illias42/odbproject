@@ -51,3 +51,14 @@ export async function getArticleHandler(req, reply) {
         return reply.code(500).send("Failed to get article");
     }
 }
+
+export async function deleteArticleHandler(req, reply) {
+    try {
+        const articleId = Number(req.params.articleId);
+        const article = await deleteArticle(articleId);
+        return reply.code(204).send(article);
+    } catch(e) {
+        console.log(e);
+        return reply.code(500).send("Failed to delete article");
+    }
+}
