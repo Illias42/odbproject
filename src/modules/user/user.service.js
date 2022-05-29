@@ -1,7 +1,7 @@
 import { hashPassword, verifyPassword } from "../../utils/hash.js";
 import { prisma } from "../../utils/prisma.js";
 import jwt from "jsonwebtoken";
-import { convert } from "html-to-text";
+import { JSDOM } from "jsdom";
 
 export async function createUser(input) {
     const { avatar, name, surname, email, password } = input;

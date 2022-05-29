@@ -48,6 +48,7 @@ export async function getUserHandler(req, reply) {
         const user = await getUser(id);
         return reply.code(200).send(user);
     } catch(e) {
+        console.log(e);
         return reply.code(500).send("Failed to get user");
     }
 }
@@ -55,7 +56,6 @@ export async function getUserHandler(req, reply) {
 export async function deleteUserHandler(req, reply) {
     try {
         const user = await deleteUser(req.user.id);
-        console.log("deleted user: ", user);
         return reply.code(204).send(user);
     } catch(e) {
         return reply.code(500).send("Failed to delete user");
