@@ -1,7 +1,7 @@
 import { hashPassword, verifyPassword } from "../../utils/hash.js";
 import { prisma } from "../../utils/prisma.js";
 import jwt from "jsonwebtoken";
-import crypto from "crypto";
+import { convert } from "html-to-text";
 
 export async function createUser(input) {
     const { avatar, name, surname, email, password } = input;
@@ -14,6 +14,31 @@ export async function createUser(input) {
     const token = jwt.sign({id: user.id, avatar, name, surname, about: "", email}, process.env.JWT_SECRET ?? "secretkey", {expiresIn: "5d"});
 
     return [user, token];
+}
+
+export async function getUser(id) {
+    const user = await prisma.user.findFirst({
+        where: {
+            id: id
+        },
+        include: {
+            articles: true,
+            quizes: true
+        }
+    });
+
+    delete user.password;
+    delete user.salt;
+    
+    user.articles.forEach((article) => {
+        article.content = convert(article.content, {
+            limits: {
+                maxChildNodes: 1
+            }
+        })
+    });
+
+    return user;
 }
 
 export async function deleteUser(id) {

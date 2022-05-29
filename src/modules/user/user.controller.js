@@ -1,4 +1,4 @@
-import { createUser, deleteUser } from "./user.service.js";
+import { createUser, deleteUser, getUser } from "./user.service.js";
 import p from "@prisma/client";
 import { prisma } from "../../utils/prisma.js";
 import jwt from "jsonwebtoken";
@@ -39,6 +39,16 @@ export async function loginUserHandler(req, reply) {
         });
     } catch(e) {
         return reply.code(500).send("Not authenticated");
+    }
+}
+
+export async function getUserHandler(req, reply) {
+    try {
+        const id = Number(req.params.id);
+        const user = await getUser(id);
+        return reply.code(200).send(user);
+    } catch(e) {
+        return reply.code(500).send("Failed to get user");
     }
 }
 

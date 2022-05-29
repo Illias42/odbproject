@@ -16,6 +16,7 @@ export async function getAllQuizzes(page) {
         include: {
             author: {
                 select: {
+                    id: true,
                     name: true,
                     surname: true,
                     avatar: true
@@ -40,6 +41,7 @@ export async function getMyQuizzes(myId) {
         include: {
             author: {
                 select: {
+                    id: true,
                     name: true,
                     surname: true,
                     avatar: true
@@ -60,6 +62,7 @@ export async function getQuiz(id) {
         include: {
             author: {
                 select: {
+                    id: true,
                     name: true,
                     surname: true,
                     avatar: true
