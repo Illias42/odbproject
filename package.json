@@ -20,6 +20,7 @@
     "fastify-multer": "^2.0.2",
     "fastify-socket.io": "^3.0.0",
     "html-to-text": "^8.2.0",
+    "jsdom": "^19.0.0",
     "jsonwebtoken": "^8.5.1",
     "multer-s3": "^2.10.0",
     "prisma": "^3.13.0",

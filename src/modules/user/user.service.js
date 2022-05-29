@@ -31,11 +31,12 @@ export async function getUser(id) {
     delete user.salt;
     
     user.articles.forEach((article) => {
-        article.content = convert(article.content, {
-            limits: {
-                maxChildNodes: 1
-            }
-        })
+        const dom = new JSDOM(article.content);
+        let content = dom.window.document.querySelector("p").textContent;
+        let length = 300; 
+        article.content = content.length > length ? 
+                          content.substring(0, length) + "..." : 
+                          content;
     });
 
     return user;

@@ -1,5 +1,5 @@
 import { prisma } from "../../utils/prisma.js";
-import { convert } from "html-to-text";
+import { JSDOM } from "jsdom";
 
 export async function createArticle(user, body) {
     const { id } = user;
@@ -33,11 +33,12 @@ export async function getArticles(page) {
     })
     
     articles.forEach((article) => {
-        article.content = convert(article.content, {
-            limits: {
-                maxChildNodes: 1
-            }
-        })
+        const dom = new JSDOM(article.content);
+        let content = dom.window.document.querySelector("p").textContent;
+        let length = 300; 
+        article.content = content.length > length ? 
+                          content.substring(0, length) + "..." : 
+                          content;
     });
 
     const count = await prisma.article.count();
