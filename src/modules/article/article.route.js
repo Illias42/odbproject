@@ -8,7 +8,7 @@ async function articleRoutes(app, options, done) {
     .register(FastifyAuth)
     .after(() => {
         app.post(
-            "/createArticle", 
+            "/createarticle", 
             {preHandler: app.auth([app.verifyJWT])}, 
             createArticleHandler
         );
