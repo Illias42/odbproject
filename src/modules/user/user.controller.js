@@ -62,13 +62,6 @@ export async function deleteUserHandler(req, reply) {
     }
 }
 
-export async function getUserAvatar(req, reply) {
-    const user = await prisma.user.findFirst({where:{
-        id: Number(req.params.userId)
-    }});
-    console.log(user.avatar);
-    reply.sendFile(user.avatar, './uploads');
-}
 
 export async function updateUserHandler(req, reply) {
     try {

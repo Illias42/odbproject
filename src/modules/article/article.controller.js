@@ -2,7 +2,7 @@ import { createArticle, deleteArticle, getArticle, getArticles, getMyArticles } 
 
 export async function getArticlesHandler(req, reply) {
     try {
-        const page = Number(req.params.page);
+        const page = Number(req.params.pageNumber);
         const articles = await getArticles(page);
         return reply.code(200).send(articles);
     } catch(e) {
